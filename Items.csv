@@ -1,0 +1,301 @@
+Date,Invoice No,Customer,Item Name,Category,Quantity,Unit Price,Total Value
+2023-01-05,INV300,Shri Hari Food Park Akot,Compressor Unit,Equipment,5,20500.95,102504.75
+2023-01-05,INV179,Rajureshwar Tea Point,Cooling Coil,Components,4,7390.68,29562.72
+2023-01-05,INV162,Padyawarcha Chaha,Compressor Unit,Equipment,2,19262.34,38524.68
+2023-01-10,INV229,Cash A/C,Air Handler Unit,Equipment,5,25556.29,127781.45
+2023-01-10,INV032,Sahani Automobiles,Compressor Unit,Equipment,4,18287.34,73149.36
+2023-01-15,INV149,Vimal Marketing & Services,Cooling Coil,Components,5,7182.65,35913.25
+2023-01-20,INV288,Maharashtra Wine Shop Paratwada,Compressor Unit,Equipment,3,18539.8,55619.4
+2023-01-25,INV183,Satish Gupta,Refrigerant Gas,Consumables,2,2651.44,5302.88
+2023-02-05,INV223,Kishor More.,Compressor Unit,Equipment,4,17300.52,69202.08
+2023-02-10,INV003,Region Punjab,Temperature Sensor,Electronics,4,1646.7,6586.8
+2023-02-10,INV021,Genuine computer,Temperature Sensor,Electronics,4,1646.45,6585.8
+2023-02-15,INV015,Labline Instruments India Pvt Ltd,Refrigerant Gas,Consumables,3,2638.04,7914.12
+2023-02-20,INV235,Raghuvir Sweets & Bakers.,Temperature Sensor,Electronics,1,1582.32,1582.32
+2023-02-20,INV102,Laxminarayan Sweets.,Cooling Coil,Components,5,6768.97,33844.85
+2023-02-20,INV014,Bank Sale,Control Panel,Electronics,8,9667.1,77336.8
+2023-03-10,INV063,Rathi Pedewala's Food Products Pvt Ltd,Temperature Sensor,Electronics,3,1579.4,4738.2
+2023-03-10,INV049,Jay Bhawani Multiservices,Refrigerant Gas,Consumables,7,2866.18,20063.26
+2023-03-15,INV285,Shri Chaitraban Bhojan Darbar,Refrigerant Gas,Consumables,4,2882.53,11530.12
+2023-03-15,INV133,Aspa Bandsons Auto Pvt.,Control Panel,Electronics,5,10168.59,50842.95
+2023-03-20,INV261,Labline Instruments India Pvt Ltd,Air Handler Unit,Equipment,2,25164.95,50329.9
+2023-03-25,INV100,PREEMEE FOODS PVT LTD AMRAVATI,Refrigerant Gas,Consumables,3,2798.47,8395.41
+2023-03-25,INV188,Cash A/C,Refrigerant Gas,Consumables,4,2908.36,11633.44
+2023-04-05,INV266,Tansukhdas Rathi Vidyalaya.,Compressor Unit,Equipment,4,18089.62,72358.48
+2023-04-05,INV297,DR MUKUNDRAO KESHAVRAO PAWAR SHAIKSHANIK PRATISTHAN,Refrigerant Gas,Consumables,4,2824.09,11296.36
+2023-04-05,INV232,Pooja Ashwin Jaiswal,Refrigerant Gas,Consumables,6,2773.52,16641.12
+2023-04-10,INV221,Rajasaheb Laxmanrao Gawande,Cooling Coil,Components,4,7196.27,28785.08
+2023-04-10,INV106,Hotel Palace Risod,Cooling Coil,Components,4,7717.71,30870.84
+2023-04-10,INV141,Jadhao Agro Industries Pvt.  Ltd Amt.,Refrigerant Gas,Consumables,6,2871.0,17226.0
+2023-04-15,INV234,Special Biochem (P) Ltd,Cooling Coil,Components,7,7304.98,51134.86
+2023-04-15,INV194,New Tech Sales & Services,Temperature Sensor,Electronics,5,1710.48,8552.4
+2023-04-15,INV062,Vijay Singh Nakul Singh Rajpurohit,Control Panel,Electronics,2,9986.08,19972.16
+2023-04-20,INV084,Dwarka Enterprises.,Refrigerant Gas,Consumables,7,2656.52,18595.64
+2023-04-20,INV237,Sagar Super Bakery & Ice Cream APrlour,Compressor Unit,Equipment,3,18385.12,55155.36
+2023-04-20,INV230,S R Industries,Cooling Coil,Components,6,7202.39,43214.34
+2023-04-25,INV281,Corner Wada Pav,Compressor Unit,Equipment,3,19379.7,58139.1
+2023-05-05,INV191,Hotel Soft Corner Tiwsa,Refrigerant Gas,Consumables,3,2684.37,8053.11
+2023-05-05,INV067,Cash A/C,Cooling Coil,Components,4,7115.56,28462.24
+2023-05-05,INV054,Giriraj Sugar & BioEnergy PVT. LTD,Compressor Unit,Equipment,5,18887.9,94439.5
+2023-05-10,INV192,Gouri Inn,Control Panel,Electronics,1,10159.04,10159.04
+2023-05-15,INV011,Cash A/C,Refrigerant Gas,Consumables,6,2757.25,16543.5
+2023-05-20,INV016,PREEMEE FOODS PVT LTD AMRAVATI,Air Handler Unit,Equipment,6,24715.6,148293.6
+2023-05-20,INV132,SVKM'S NMIMS,Air Handler Unit,Equipment,5,24505.9,122529.5
+2023-05-20,INV289,Raghuvir Refreshment.,Air Handler Unit,Equipment,7,24197.16,169380.12
+2023-05-20,INV042,Ahuja Industries,Control Panel,Electronics,7,9759.43,68316.01
+2023-05-25,INV254,Shree Siddhivinayak,Air Handler Unit,Equipment,7,24493.03,171451.21
+2023-05-25,INV253,Quality Wine Bar.,Control Panel,Electronics,3,9639.42,28918.26
+2023-05-25,INV044,Naman Saiuja.,Cooling Coil,Components,3,7182.34,21547.02
+2023-06-05,INV265,Amit Construction,Refrigerant Gas,Consumables,5,2558.53,12792.65
+2023-06-05,INV069,GOPI INDUSTRIES,Air Handler Unit,Equipment,5,24589.69,122948.45
+2023-06-05,INV284,Ramesh Kishanlal Mundhada,Control Panel,Electronics,5,9880.52,49402.6
+2023-06-10,INV008,Shankar  Refrigeration,Refrigerant Gas,Consumables,5,2703.03,13515.15
+2023-06-10,INV041,"R.C.Patel  Prathmik Shala , Ramsingh Nagar",Compressor Unit,Equipment,3,18694.43,56083.29
+2023-06-15,INV167,Cash A/C,Refrigerant Gas,Consumables,4,2645.84,10583.36
+2023-06-15,INV269,Ujwal Sudhakarrao Mhaske,Refrigerant Gas,Consumables,3,2677.5,8032.5
+2023-06-20,INV002,Jamiya Islamiya Maarifululum,Air Handler Unit,Equipment,3,24564.71,73694.13
+2023-06-20,INV134,Janefhal Farmers Producers Company Limited,Compressor Unit,Equipment,5,18748.52,93742.6
+2023-06-20,INV157,Chetak Cycle,Temperature Sensor,Electronics,2,1584.75,3169.5
+2023-06-20,INV184,HGC COMFORT BED'S,Temperature Sensor,Electronics,4,1509.47,6037.88
+2023-06-25,INV151,Sahani Automobiles,Cooling Coil,Components,3,7613.37,22840.11
+2023-07-05,INV218,Jadhao Gears Limited,Cooling Coil,Components,3,6991.39,20974.17
+2023-07-10,INV052,Betul Biofuel Private Limited.,Control Panel,Electronics,7,10320.95,72246.65
+2023-07-15,INV197,GOKUL VRUNDAWAN SWEETS AURANGABAD,Control Panel,Electronics,5,10289.51,51447.55
+2023-07-15,INV196,Hotel Shanti Sagar Dhulia,Temperature Sensor,Electronics,8,1669.22,13353.76
+2023-07-20,INV245,Madhavpriya Restaurant,Cooling Coil,Components,4,7457.14,29828.56
+2023-08-05,INV118,Landmark Tapadia LLP,Cooling Coil,Components,7,7649.69,53547.83
+2023-08-05,INV275,Shree Siddhivinayak,Compressor Unit,Equipment,3,18434.43,55303.29
+2023-08-05,INV007,Cash A/C,Refrigerant Gas,Consumables,2,2832.38,5664.76
+2023-08-05,INV129,Umesh Mohan Bhalerao.,Cooling Coil,Components,4,6890.04,27560.16
+2023-08-10,INV116,SARITA TIWARI,Cooling Coil,Components,3,7278.68,21836.04
+2023-08-25,INV174,Ikon Incorporation,Control Panel,Electronics,5,8904.35,44521.75
+2023-08-25,INV135,Maa Bhagwati Developers,Control Panel,Electronics,5,9520.86,47604.3
+2023-08-25,INV038,Cash A/C,Compressor Unit,Equipment,1,18671.81,18671.81
+2023-09-05,INV137,V9 Design Enterprises,Control Panel,Electronics,2,9813.57,19627.14
+2023-09-05,INV160,Atul Jaiswal,Refrigerant Gas,Consumables,3,2806.91,8420.73
+2023-09-05,INV033,Shankar  Refrigeration,Refrigerant Gas,Consumables,2,2718.34,5436.68
+2023-09-10,INV176,SWAMI DUGDALAYA,Compressor Unit,Equipment,5,18195.01,90975.05
+2023-09-10,INV090,Bank Sale,Refrigerant Gas,Consumables,4,2858.74,11434.96
+2023-09-10,INV075,New Gayatri Dairy Navi Mumbai,Refrigerant Gas,Consumables,2,2982.44,5964.88
+2023-09-15,INV291,Tirupati Trade Link,Compressor Unit,Equipment,2,18541.81,37083.62
+2023-09-15,INV298,M/s Manju Agarwal,Refrigerant Gas,Consumables,4,2821.64,11286.56
+2023-09-15,INV201,Mahi Terry Cot LLP,Refrigerant Gas,Consumables,4,2911.49,11645.96
+2023-09-20,INV087,Symphony Hospitality Nanded,Compressor Unit,Equipment,7,19573.87,137017.09
+2023-10-05,INV165,Cash A/C,Air Handler Unit,Equipment,5,23373.78,116868.9
+2023-10-10,INV277,M2Square Hospitality Private Limited.,Refrigerant Gas,Consumables,2,2854.73,5709.46
+2023-10-20,INV252,Jaideep Singh Saluja,Air Handler Unit,Equipment,1,24354.89,24354.89
+2023-10-20,INV272,M.D Square Family Restaurant,Cooling Coil,Components,4,6938.18,27752.72
+2023-10-25,INV061,DR MUKUNDRAO KESHAVRAO PAWAR SHAIKSHANIK PRATISTHAN,Refrigerant Gas,Consumables,4,2890.0,11560.0
+2023-10-25,INV271,Hotel Rasika Inn,Refrigerant Gas,Consumables,7,2657.24,18600.68
+2023-11-05,INV173,SIDDHIVINAYAK SERVICES,Compressor Unit,Equipment,6,19039.25,114235.5
+2023-11-05,INV023,Multi Deal Corporation,Cooling Coil,Components,6,7011.42,42068.52
+2023-11-10,INV209,Sheela Murlidhar Dange.,Cooling Coil,Components,5,7087.48,35437.4
+2023-11-20,INV078,Laxminarayan Sweets.,Cooling Coil,Components,5,6962.05,34810.25
+2023-11-25,INV107,MADHYAMIK VIDYALAYA MADNI,Compressor Unit,Equipment,8,19132.71,153061.68
+2023-11-25,INV243,Shree Swami Developers,Air Handler Unit,Equipment,7,24314.24,170199.68
+2023-11-25,INV110,Baghel Manohar Food and Beverage LLP,Refrigerant Gas,Consumables,5,2677.53,13387.65
+2023-11-25,INV206,M/s Hargovind Shalikram Jaiswal.,Temperature Sensor,Electronics,2,1643.06,3286.12
+2023-11-25,INV295,GANESH YASHWANTRAO SHRIKANDE,Compressor Unit,Equipment,2,18121.07,36242.14
+2023-12-05,INV039,Khushi Food Products,Compressor Unit,Equipment,5,17966.05,89830.25
+2023-12-05,INV017,ORO SOFTWARE PRIVATE LIMITED,Refrigerant Gas,Consumables,3,2728.35,8185.05
+2023-12-10,INV028,Pratidin Dream Projects,Refrigerant Gas,Consumables,2,2810.15,5620.3
+2023-12-10,INV097,Rishi Kesharwani,Refrigerant Gas,Consumables,4,2707.41,10829.64
+2023-12-10,INV128,DURANI SODA FACTORY,Refrigerant Gas,Consumables,4,2783.49,11133.96
+2023-12-10,INV228,Gukss Industries,Cooling Coil,Components,4,7213.41,28853.64
+2023-12-15,INV006,Bhavna's Cakes and Bakery,Cooling Coil,Components,7,7262.98,50840.86
+2023-12-15,INV220,Hotel Bridge Way Restaurant and Resort,Control Panel,Electronics,4,9343.92,37375.68
+2023-12-20,INV226,K.K Pride.,Compressor Unit,Equipment,3,18875.98,56627.94
+2023-12-20,INV101,Rajesh Kadu,Compressor Unit,Equipment,2,17600.24,35200.48
+2023-12-20,INV065,CARD SALES,Refrigerant Gas,Consumables,5,3032.62,15163.1
+2023-12-20,INV233,Shriniwas entertainment,Cooling Coil,Components,10,7200.58,72005.8
+2023-12-25,INV018,Shrichakradhar Agriculture Corporation.,Control Panel,Electronics,4,9401.89,37607.56
+2023-12-25,INV068,Vijay Kumar Awadhiya.,Refrigerant Gas,Consumables,5,2869.35,14346.75
+2024-01-05,INV290,Manoj Charate,Compressor Unit,Equipment,2,18354.96,36709.92
+2024-01-05,INV239,New Chetan Hotel.,Control Panel,Electronics,6,10201.77,61210.62
+2024-01-10,INV187,Prashant Dairy,Temperature Sensor,Electronics,4,1551.99,6207.96
+2024-01-10,INV189,Rathi Pedewala's Food Products Pvt Ltd,Refrigerant Gas,Consumables,2,2589.67,5179.34
+2024-01-15,INV089,Hotel Palace Risod,Compressor Unit,Equipment,6,18200.1,109200.6
+2024-01-15,INV005,SVKM'S NMIMS,Refrigerant Gas,Consumables,6,2705.9,16235.4
+2024-01-15,INV249,S M HEMRAJANI FUELS,Air Handler Unit,Equipment,6,25933.11,155598.66
+2024-01-20,INV280,New Tech Sales & Services,Cooling Coil,Components,5,7324.99,36624.95
+2024-01-20,INV219,Hotel Surya Bar and Restaurant,Control Panel,Electronics,5,9742.84,48714.2
+2024-01-20,INV270,Padyawarcha Chaha,Air Handler Unit,Equipment,7,22815.22,159706.54
+2024-01-20,INV119,Technicom System,Compressor Unit,Equipment,5,18251.4,91257.0
+2024-01-25,INV147,Mr Rajkumar Gangrade,Refrigerant Gas,Consumables,6,2714.62,16287.72
+2024-02-15,INV122,P R Pote International School,Compressor Unit,Equipment,5,18562.15,92810.75
+2024-02-15,INV163,Shri Chaitraban Bhojan Darbar,Cooling Coil,Components,4,7200.39,28801.56
+2024-02-15,INV048,Nilawar Farms Borda,Control Panel,Electronics,8,9544.29,76354.32
+2024-02-15,INV117,Ssai Baba Trust Sai Nagar,Control Panel,Electronics,2,9924.73,19849.46
+2024-02-15,INV202,Mehfil Inn Private Limited,Control Panel,Electronics,4,9871.08,39484.32
+2024-02-20,INV154,Vasantdasmaharaj Gramin Bigarsheti Sahakari  Patsan,Refrigerant Gas,Consumables,5,2939.1,14695.5
+2024-02-20,INV080,New Punjabi Dhaba & Restaurant.,Cooling Coil,Components,9,7052.03,63468.27
+2024-02-20,INV105,Shankar  Refrigeration,Cooling Coil,Components,1,6552.79,6552.79
+2024-02-25,INV093,Anand Bar & Restaurant,Compressor Unit,Equipment,5,17832.21,89161.05
+2024-03-05,INV004,Cash A/C,Air Handler Unit,Equipment,6,24904.48,149426.88
+2024-03-10,INV071,New Khandelwal Sweets,Temperature Sensor,Electronics,2,1629.63,3259.26
+2024-03-10,INV031,S.S.D.V Dnyanpeeth.,Cooling Coil,Components,6,7250.85,43505.1
+2024-03-10,INV037,Shree Siddhivinayak,Cooling Coil,Components,3,7161.46,21484.38
+2024-03-10,INV278,Jaamnagari Sweets,Cooling Coil,Components,5,6979.04,34895.2
+2024-03-10,INV240,Shri Govindrao Sitaramji Tompe,Temperature Sensor,Electronics,4,1658.36,6633.44
+2024-03-25,INV066,Gurukrupa Hospitality,Compressor Unit,Equipment,3,18480.86,55442.58
+2024-04-05,INV056,Shraddha Family Shoppee,Control Panel,Electronics,3,10007.79,30023.37
+2024-04-05,INV158,Bed N Basics,Compressor Unit,Equipment,1,18325.49,18325.49
+2024-04-10,INV169,Bank Sale,Cooling Coil,Components,4,6819.11,27276.44
+2024-04-20,INV186,Dwarka Enterprises.,Refrigerant Gas,Consumables,6,2890.11,17340.66
+2024-04-25,INV210,Yash Traders Amravati,Cooling Coil,Components,6,6804.58,40827.48
+2024-05-05,INV103,Vijay Vilas Pure Veg Restaurant.,Refrigerant Gas,Consumables,4,2850.16,11400.64
+2024-05-05,INV109,Vimal Marketing & Services,Cooling Coil,Components,1,6831.41,6831.41
+2024-05-15,INV181,Cash A/C,Control Panel,Electronics,2,10435.07,20870.14
+2024-05-20,INV099,Prof Ram Meghe Institute of Technology & Research,Cooling Coil,Components,2,7502.16,15004.32
+2024-05-25,INV236,Manohar Chai,Refrigerant Gas,Consumables,2,2739.71,5479.42
+2024-06-10,INV222,Preeti Coldrinks,Temperature Sensor,Electronics,2,1503.86,3007.72
+2024-06-10,INV268,Cambrige School,Compressor Unit,Equipment,6,19380.83,116284.98
+2024-06-10,INV040,Preeti Coldrinks,Compressor Unit,Equipment,3,18785.53,56356.59
+2024-06-15,INV036,Baghel Manohar Food and Beverage LLP,Compressor Unit,Equipment,2,19779.24,39558.48
+2024-06-15,INV156,Amrita Naresh Kothari,Air Handler Unit,Equipment,7,24599.99,172199.93
+2024-06-20,INV046,Shiv Kripa Hotel,Refrigerant Gas,Consumables,6,2778.65,16671.9
+2024-07-05,INV077,Prinicipal Shri Shivaji Arts & Commerce College,Refrigerant Gas,Consumables,3,2850.66,8551.98
+2024-07-05,INV257,SVKM'S NMIMS,Refrigerant Gas,Consumables,5,2898.44,14492.2
+2024-07-10,INV045,Athena Lounge & Bar,Refrigerant Gas,Consumables,5,2995.32,14976.6
+2024-07-15,INV185,Bank Sale,Refrigerant Gas,Consumables,7,2868.8,20081.6
+2024-07-15,INV127,Gukss Industries,Compressor Unit,Equipment,5,19276.51,96382.55
+2024-07-15,INV059,D PETROLEUM,Air Handler Unit,Equipment,3,24220.81,72662.43
+2024-07-20,INV074,Cash A/C,Control Panel,Electronics,6,10110.0,60660.0
+2024-07-25,INV076,Bank Sale,Refrigerant Gas,Consumables,5,2814.73,14073.65
+2024-08-05,INV175,Mehfil Inn Private Limited,Cooling Coil,Components,3,7378.04,22134.12
+2024-08-05,INV214,Arjun Sundrani,Refrigerant Gas,Consumables,3,2719.93,8159.79
+2024-08-10,INV053,Shri Yashoda Garden,Refrigerant Gas,Consumables,5,2748.74,13743.7
+2024-08-15,INV092,Cash A/C,Cooling Coil,Components,4,7369.13,29476.52
+2024-08-15,INV070,Shankar  Refrigeration,Control Panel,Electronics,6,10060.91,60365.46
+2024-08-15,INV299,Satvinder Kour Khalsa,Cooling Coil,Components,6,6969.94,41819.64
+2024-08-15,INV043,JAISHRIRAM STEEL & GIFT CENTRE,Refrigerant Gas,Consumables,6,2603.25,15619.5
+2024-08-15,INV143,Gurunanak Dhabha,Cooling Coil,Components,4,7215.03,28860.12
+2024-08-20,INV142,Shaikh Usman Shaikh Chand Qureshi,Compressor Unit,Equipment,3,18780.34,56341.02
+2024-09-10,INV113,Laxminarayan Mithaiwala,Refrigerant Gas,Consumables,4,2918.63,11674.52
+2024-09-15,INV126,Hi Tech Higher Primary School.,Temperature Sensor,Electronics,6,1621.53,9729.18
+2024-09-15,INV211,SCRAP POINT,Compressor Unit,Equipment,3,17706.94,53120.82
+2024-09-15,INV296,M/s Sunil Automotives,Refrigerant Gas,Consumables,3,2855.59,8566.77
+2024-09-15,INV104,Sangita Umeshrao Mandavgade,Compressor Unit,Equipment,2,18617.01,37234.02
+2024-09-20,INV267,Yadgar Gold Finger Factory,Cooling Coil,Components,2,6865.66,13731.32
+2024-09-25,INV292,Bank Sale,Cooling Coil,Components,4,7311.47,29245.88
+2024-09-25,INV251,Synwood Agro Limited Amravati,Compressor Unit,Equipment,1,18277.43,18277.43
+2024-10-05,INV259,Cash A/C,Refrigerant Gas,Consumables,2,2722.5,5445.0
+2024-10-15,INV027,Sudesh Electricals  Consultants,Compressor Unit,Equipment,4,18207.99,72831.96
+2024-10-20,INV139,ASHALATA CLOUD KITCHEN,Refrigerant Gas,Consumables,4,2870.78,11483.12
+2024-10-20,INV276,Shri Somnath Strong Build Constrution,Refrigerant Gas,Consumables,4,2649.88,10599.52
+2024-10-20,INV035,Excellence Sales & Services,Refrigerant Gas,Consumables,4,3005.73,12022.92
+2024-10-20,INV258,Yashdeep Gurdeep Singh Bhatia.,Temperature Sensor,Electronics,5,1607.66,8038.3
+2024-10-20,INV013,Bank Sale,Refrigerant Gas,Consumables,4,2651.86,10607.44
+2024-10-20,INV205,Bachat Babaji,Compressor Unit,Equipment,4,19622.17,78488.68
+2024-10-25,INV124,MR HITEN,Cooling Coil,Components,2,7218.14,14436.28
+2024-11-05,INV256,Ashok Tea Stall .,Cooling Coil,Components,7,7366.65,51566.55
+2024-11-10,INV159,Plasti Surge Industries Pvt Ltd.,Compressor Unit,Equipment,4,17838.29,71353.16
+2024-11-15,INV215,Cash A/C,Refrigerant Gas,Consumables,9,2560.91,23048.19
+2024-11-20,INV282,Cash A/C,Cooling Coil,Components,4,7657.98,30631.92
+2024-11-25,INV274,Hotel Welcome Inn,Temperature Sensor,Electronics,4,1607.73,6430.92
+2024-11-25,INV029,Jadhao Gears Limited,Refrigerant Gas,Consumables,4,2762.58,11050.32
+2024-12-05,INV217,Special Biochem (P) Ltd,Temperature Sensor,Electronics,6,1634.38,9806.28
+2024-12-10,INV072,Prabhat Kourav.,Cooling Coil,Components,2,6769.42,13538.84
+2024-12-10,INV161,Saraswati Dhanwantri Dental Collage,Air Handler Unit,Equipment,5,24514.24,122571.2
+2024-12-15,INV050,NEO SERVICES,Compressor Unit,Equipment,3,19102.19,57306.57
+2024-12-15,INV115,HOTEL BRIDGE WAY RESTAURANT & RESORT CHANDRAPUR,Refrigerant Gas,Consumables,5,2828.32,14141.6
+2024-12-20,INV279,Pritam  Refrigeration & Engg.,Refrigerant Gas,Consumables,4,2809.84,11239.36
+2024-12-20,INV091,Swaraj Bakery,Refrigerant Gas,Consumables,5,2606.16,13030.8
+2024-12-25,INV260,Preet Group Wardha,Compressor Unit,Equipment,4,19545.26,78181.04
+2024-12-25,INV145,Mehfil Inn Private Limited,Cooling Coil,Components,6,7542.04,45252.24
+2025-01-10,INV250,Labline Instruments India Pvt Ltd,Compressor Unit,Equipment,7,19251.48,134760.36
+2025-01-10,INV248,R.C Patel Madhyamik Shala Shirpur,Compressor Unit,Equipment,4,18165.98,72663.92
+2025-01-10,INV199,Cash A/C,Control Panel,Electronics,5,9720.0,48600.0
+2025-01-20,INV294,SNEHA RESTAURANT AND PERMIT ROOM,Refrigerant Gas,Consumables,5,2828.75,14143.75
+2025-01-25,INV193,Dwarka Enterprises.,Control Panel,Electronics,3,10082.97,30248.91
+2025-01-25,INV293,Shri Ganesh Dudh Dairy.,Cooling Coil,Components,8,7237.98,57903.84
+2025-01-25,INV242,Prabhat Kourav.,Compressor Unit,Equipment,3,18108.34,54325.02
+2025-02-05,INV182,Technicom System,Refrigerant Gas,Consumables,1,2556.89,2556.89
+2025-02-10,INV131,Gandhi Vidhyalay,Refrigerant Gas,Consumables,3,2813.35,8440.05
+2025-02-15,INV112,Tirupati Trade Link,Refrigerant Gas,Consumables,5,2716.44,13582.2
+2025-02-20,INV164,Rohit Parkale .,Control Panel,Electronics,3,9700.19,29100.57
+2025-02-25,INV019,R. C. Patel Institute of Technology,Air Handler Unit,Equipment,2,24906.12,49812.24
+2025-02-25,INV171,Umesh Mohan Bhalerao.,Cooling Coil,Components,2,7455.39,14910.78
+2025-02-25,INV166,Hotel Palash Inn.,Refrigerant Gas,Consumables,5,2841.02,14205.1
+2025-03-05,INV130,Rahul Prabhakar Thavale.,Compressor Unit,Equipment,4,19562.86,78251.44
+2025-03-10,INV238,Pratidin Dream Projects,Temperature Sensor,Electronics,6,1663.44,9980.64
+2025-03-15,INV216,Mahi Terry Cot LLP,Refrigerant Gas,Consumables,5,2883.91,14419.55
+2025-04-05,INV146,Shri Ambica Hotel.,Cooling Coil,Components,2,7199.6,14399.2
+2025-04-05,INV203,Pushpa Enterprises.,Refrigerant Gas,Consumables,4,2695.95,10783.8
+2025-04-05,INV178,Vimal Marketing & Services,Refrigerant Gas,Consumables,4,2911.93,11647.72
+2025-04-10,INV088,Jaamnagari Sweets,Temperature Sensor,Electronics,1,1609.1,1609.1
+2025-04-10,INV195,Yukti Mehta,Control Panel,Electronics,3,10320.82,30962.46
+2025-04-15,INV273,New English Academy of Genius.,Compressor Unit,Equipment,4,18659.32,74637.28
+2025-04-15,INV051,Gukss Industries,Cooling Coil,Components,5,7310.42,36552.1
+2025-04-15,INV153,Narendra T Ramavat,Compressor Unit,Equipment,4,19088.25,76353.0
+2025-04-15,INV121,Shri Chaitraban Bhojan Darbar,Cooling Coil,Components,5,7204.03,36020.15
+2025-04-20,INV287,"R.C.Patel Madhyamik Shala, Khade",Refrigerant Gas,Consumables,5,2674.23,13371.15
+2025-04-20,INV207,Shantiniketan International School,Air Handler Unit,Equipment,6,23789.88,142739.28
+2025-04-20,INV177,Mahaveer Sweets.,Control Panel,Electronics,4,9918.37,39673.48
+2025-04-20,INV244,M2Square Hospitality Private Limited.,Air Handler Unit,Equipment,2,24996.45,49992.9
+2025-04-25,INV026,"R.C.Patel Urdu Shala, Shirpur",Cooling Coil,Components,3,7148.3,21444.9
+2025-04-25,INV010,RATTANINDIA POWER LIMITED.,Cooling Coil,Components,4,7241.02,28964.08
+2025-05-05,INV200,Recycle Bell Private Limited,Compressor Unit,Equipment,5,18190.05,90950.25
+2025-05-05,INV283,Hotel Happy Food,Cooling Coil,Components,3,7204.23,21612.69
+2025-05-10,INV148,Ekta Abhushan Pvt Ltd.,Cooling Coil,Components,10,7318.42,73184.2
+2025-05-10,INV055,"Culcutta Sweets,",Air Handler Unit,Equipment,4,25187.91,100751.64
+2025-05-10,INV225,Anil Hotel Paratwada,Temperature Sensor,Electronics,7,1646.37,11524.59
+2025-05-15,INV096,Hotel Ram Avtar Hingan Ghat,Refrigerant Gas,Consumables,10,2967.82,29678.2
+2025-05-20,INV120,Hotel Nandini Restaurant,Control Panel,Electronics,5,10133.7,50668.5
+2025-05-20,INV022,Cash A/C,Air Handler Unit,Equipment,4,23789.28,95157.12
+2025-06-05,INV108,Bank Sale,Air Handler Unit,Equipment,4,24833.98,99335.92
+2025-06-05,INV190,Shri Pundalik Maharaj Mahavidyalaya.,Compressor Unit,Equipment,5,20505.95,102529.75
+2025-06-10,INV246,Deepak Prithviraj Shinde.,Refrigerant Gas,Consumables,5,3053.98,15269.9
+2025-06-15,INV247,M/S GANESH LAXMI PHOTO COLOUR LAB.,Refrigerant Gas,Consumables,5,2783.84,13919.2
+2025-06-15,INV060,Recycle Bell Private Limited,Air Handler Unit,Equipment,3,25826.51,77479.53
+2025-06-25,INV123,Shri Vyankatesh Foods,Cooling Coil,Components,2,7031.56,14063.12
+2025-06-25,INV125,Swadika Fine Dine,Refrigerant Gas,Consumables,2,2788.42,5576.84
+2025-07-05,INV030,Manoj Charate,Refrigerant Gas,Consumables,3,2745.77,8237.31
+2025-07-05,INV227,JAISHRIRAM STEEL & GIFT CENTRE,Air Handler Unit,Equipment,5,23835.49,119177.45
+2025-07-05,INV224,Jadhao Agro Industries Pvt.  Ltd Amt.,Cooling Coil,Components,2,6800.7,13601.4
+2025-07-10,INV012,Origin Enterprises,Air Handler Unit,Equipment,3,24937.6,74812.8
+2025-07-15,INV144,Mewa Shop,Cooling Coil,Components,2,7291.02,14582.04
+2025-07-15,INV140,Hotel Vijay Vilas,Refrigerant Gas,Consumables,8,2787.71,22301.68
+2025-07-20,INV180,Sai Baba Fuel Station,Refrigerant Gas,Consumables,2,2758.01,5516.02
+2025-07-25,INV020,KHANZODE CONSTRUCTION,Refrigerant Gas,Consumables,4,2784.23,11136.92
+2025-07-25,INV047,Shri Sai Services,Refrigerant Gas,Consumables,3,2792.5,8377.5
+2025-08-05,INV204,Pooja Enterprises,Compressor Unit,Equipment,6,18008.18,108049.08
+2025-08-05,INV172,Shankar  Refrigeration,Cooling Coil,Components,4,6552.06,26208.24
+2025-08-05,INV085,S.S.D.V Dnyanpeeth.,Air Handler Unit,Equipment,7,23876.12,167132.84
+2025-08-20,INV058,Cash A/C,Compressor Unit,Equipment,1,17025.14,17025.14
+2025-09-05,INV057,The Best Petrol Pump.,Cooling Coil,Components,3,7350.1,22050.3
+2025-09-05,INV136,Maheshwar Ridhi Sidhi Valley.,Cooling Coil,Components,7,7189.74,50328.18
+2025-09-05,INV168,Sanjeevan Nursing College,Temperature Sensor,Electronics,5,1699.51,8497.55
+2025-09-10,INV231,Shirpur Education Society .,Refrigerant Gas,Consumables,5,2805.99,14029.95
+2025-09-15,INV086,Sunflag Iron and Steel Co Ltd.,Control Panel,Electronics,2,10010.91,20021.82
+2025-09-15,INV073,Rohit Dairy,Cooling Coil,Components,3,7043.47,21130.41
+2025-09-20,INV001,Ketan Rajendra Mahalle,Air Handler Unit,Equipment,4,24625.28,98501.12
+2025-09-20,INV094,AKSHAY HIROLE,Cooling Coil,Components,5,7426.04,37130.2
+2025-09-20,INV170,SANTOS DHAPPAD,Refrigerant Gas,Consumables,2,2724.49,5448.98
+2025-09-25,INV114,The Principle Gramsewak Training Centre,Temperature Sensor,Electronics,4,1734.96,6939.84
+2025-09-25,INV155,Genuine computer,Refrigerant Gas,Consumables,2,2677.1,5354.2
+2025-10-05,INV083,Paritosh Jain,Refrigerant Gas,Consumables,10,2668.22,26682.2
+2025-10-05,INV264,Shri Digambar Jain Siddha Kshetra.,Cooling Coil,Components,2,7276.82,14553.64
+2025-10-10,INV286,Pande's Hotel Kitchen Equipment.,Refrigerant Gas,Consumables,3,2873.92,8621.76
+2025-10-10,INV024,Police Adhikshak.,Compressor Unit,Equipment,2,18627.72,37255.44
+2025-10-10,INV213,Tirupati Trade Link,Refrigerant Gas,Consumables,4,2807.61,11230.44
+2025-10-15,INV111,Cash A/C,Compressor Unit,Equipment,3,19830.2,59490.6
+2025-10-15,INV263,Mahi Terry Cot LLP,Refrigerant Gas,Consumables,5,2881.18,14405.9
+2025-10-20,INV198,Gukss Industries,Compressor Unit,Equipment,5,17115.3,85576.5
+2025-10-20,INV255,K D Industries,Cooling Coil,Components,8,6946.66,55573.28
+2025-10-25,INV064,Giriraj Sugar & BioEnergy PVT. LTD,Refrigerant Gas,Consumables,5,2634.59,13172.95
+2025-11-10,INV212,BHUWANESHWAR REFINERIES PVT LTD,Compressor Unit,Equipment,7,18744.41,131210.87
+2025-11-10,INV241,Bank Sale,Control Panel,Electronics,3,9252.11,27756.33
+2025-11-10,INV079,Nitin Wasrani.,Refrigerant Gas,Consumables,4,2879.17,11516.68
+2025-11-15,INV262,Vihan Dudh Dairy,Refrigerant Gas,Consumables,2,2730.99,5461.98
+2025-11-20,INV009,Cash A/C,Refrigerant Gas,Consumables,6,2748.22,16489.32
+2025-11-25,INV138,Jai Nanakram Talda,Compressor Unit,Equipment,6,17451.54,104709.24
+2025-11-25,INV082,Hotel Bridge Way Restaurant and Resort,Control Panel,Electronics,4,9447.32,37789.28
+2025-11-25,INV152,Vidya Bhartati Mahavidyalaya,Compressor Unit,Equipment,3,18197.83,54593.49
+2025-11-25,INV150,GOKUL VRUNDAWAN SWEETS AURANGABAD,Cooling Coil,Components,5,6741.28,33706.4
+2025-12-05,INV098,Hotel Madhuban Jalna,Compressor Unit,Equipment,2,18351.18,36702.36
+2025-12-10,INV095,Origin Enterprises,Refrigerant Gas,Consumables,3,3066.85,9200.55
+2025-12-10,INV208,Manju Agwan,Cooling Coil,Components,6,7231.53,43389.18
+2025-12-20,INV034,M/s Sunil Automotives,Air Handler Unit,Equipment,5,23640.68,118203.4
+2025-12-25,INV025,Bank Sale,Air Handler Unit,Equipment,7,26005.04,182035.28
+2025-12-25,INV081,Shri Narayana Realty,Compressor Unit,Equipment,5,18381.86,91909.3

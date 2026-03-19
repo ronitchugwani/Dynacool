@@ -14,11 +14,13 @@ export async function fetchDashboardData(filters = {}) {
     params.customer = filters.customer
   }
 
-  const [kpisRes, monthlyRes, customersRes, gstRes] = await Promise.all([
+  const [kpisRes, monthlyRes, customersRes, gstRes, productsRes, categoriesRes] = await Promise.all([
     apiClient.get('/kpis', { params }),
     apiClient.get('/monthly-sales', { params }),
     apiClient.get('/top-customers', { params }),
     apiClient.get('/gst', { params }),
+    apiClient.get('/top-products', { params }),
+    apiClient.get('/category-sales', { params }),
   ])
 
   return {
@@ -26,6 +28,8 @@ export async function fetchDashboardData(filters = {}) {
     monthlySales: monthlyRes.data,
     topCustomers: customersRes.data,
     gst: gstRes.data,
+    topProducts: productsRes.data,
+    categorySales: categoriesRes.data,
   }
 }
 
