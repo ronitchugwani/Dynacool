@@ -9,9 +9,9 @@ import {
   YAxis,
 } from 'recharts'
 
-import { fetchDashboardData } from '../api/client'
-import CustomerChart from '../components/CustomerChart'
+import { fetchDashboardData, fetchFilterOptions } from '../api/client'
 import CategoryChart from '../components/CategoryChart'
+import CustomerChart from '../components/CustomerChart'
 import Filters from '../components/Filters'
 import GSTChart from '../components/GSTChart'
 import KPI from '../components/KPI'
@@ -25,6 +25,12 @@ const EMPTY_DASHBOARD = {
   gst: [],
   topProducts: [],
   categorySales: [],
+}
+
+const EMPTY_FILTER_OPTIONS = {
+  years: [],
+  customers: [],
+  products: [],
 }
 
 function LoadingState() {
@@ -48,6 +54,17 @@ function ErrorState({ message }) {
       >
         Retry
       </button>
+    </div>
+  )
+}
+
+function EmptyDashboardState() {
+  return (
+    <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/60 p-6 text-center">
+      <h2 className="text-lg font-semibold text-slate-100">No data for the selected filters</h2>
+      <p className="mt-2 text-sm text-slate-400">
+        Try broadening the year, customer, or product filters to bring records back into view.
+      </p>
     </div>
   )
 }
@@ -115,12 +132,26 @@ function buildHistogram(values, binCount = 10) {
   }))
 }
 
+function ScopeBadge({ label, value }) {
+  if (!value || value === 'all') {
+    return null
+  }
+
+  return (
+    <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-xs text-cyan-100">
+      {label}: {value}
+    </span>
+  )
+}
+
 function Dashboard() {
   const [dashboardData, setDashboardData] = useState(EMPTY_DASHBOARD)
+  const [filterOptions, setFilterOptions] = useState(EMPTY_FILTER_OPTIONS)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [selectedYear, setSelectedYear] = useState('all')
   const [selectedCustomer, setSelectedCustomer] = useState('all')
+  const [selectedProduct, setSelectedProduct] = useState('all')
 
   useEffect(() => {
     let cancelled = false
@@ -130,13 +161,20 @@ function Dashboard() {
       setError('')
 
       try {
-        const data = await fetchDashboardData({
+        const filters = {
           year: selectedYear,
           customer: selectedCustomer,
-        })
+          product: selectedProduct,
+        }
+
+        const [data, options] = await Promise.all([
+          fetchDashboardData(filters),
+          fetchFilterOptions(filters),
+        ])
 
         if (!cancelled) {
           setDashboardData(data)
+          setFilterOptions(options)
         }
       } catch (apiError) {
         if (!cancelled) {
@@ -154,7 +192,7 @@ function Dashboard() {
     return () => {
       cancelled = true
     }
-  }, [selectedYear, selectedCustomer])
+  }, [selectedYear, selectedCustomer, selectedProduct])
 
   const monthlySales = useMemo(
     () => normalizeArray(dashboardData.monthlySales, ['data', 'results', 'items']),
@@ -182,31 +220,40 @@ function Dashboard() {
   )
 
   const yearOptions = useMemo(() => {
-    const fromEndpoint = normalizeArray(dashboardData.kpis?.years)
-      .map((year) => String(year))
-      .filter((year) => /^\d{4}$/.test(year))
-
-    const fromSeries = monthlySales
-      .map((entry) => {
-        const key = entry.month || entry.year_month || entry.label
-        if (!key) {
-          return null
-        }
-
-        const parsed = new Date(String(key))
-        return Number.isNaN(parsed.getTime()) ? String(key).slice(0, 4) : String(parsed.getFullYear())
-      })
-      .filter((year) => typeof year === 'string' && /^\d{4}$/.test(year))
-
-    return [...new Set([...fromEndpoint, ...fromSeries])].sort((a, b) => Number(a) - Number(b))
-  }, [dashboardData.kpis, monthlySales])
+    const fromFilters = normalizeArray(filterOptions.years).map((year) => String(year))
+    const fromKpis = normalizeArray(dashboardData.kpis?.years).map((year) => String(year))
+    return [...new Set([...fromFilters, ...fromKpis])].sort((a, b) => Number(a) - Number(b))
+  }, [dashboardData.kpis, filterOptions.years])
 
   const customerOptions = useMemo(() => {
-    const fromEndpoint = normalizeArray(dashboardData.kpis?.customers)
-    const fromTop = topCustomers.map((entry) => entry.customer || entry.name).filter(Boolean)
+    const fromFilters = normalizeArray(filterOptions.customers)
+    const fromKpis = normalizeArray(dashboardData.kpis?.customers)
+    return [...new Set([...fromFilters, ...fromKpis])].sort((a, b) => a.localeCompare(b))
+  }, [dashboardData.kpis, filterOptions.customers])
 
-    return [...new Set([...fromEndpoint, ...fromTop])].sort((a, b) => a.localeCompare(b))
-  }, [dashboardData.kpis, topCustomers])
+  const productOptions = useMemo(() => {
+    const fromFilters = normalizeArray(filterOptions.products)
+    const fromKpis = normalizeArray(dashboardData.kpis?.products)
+    return [...new Set([...fromFilters, ...fromKpis])].sort((a, b) => a.localeCompare(b))
+  }, [dashboardData.kpis, filterOptions.products])
+
+  useEffect(() => {
+    if (selectedYear !== 'all' && !yearOptions.includes(selectedYear)) {
+      setSelectedYear('all')
+    }
+  }, [selectedYear, yearOptions])
+
+  useEffect(() => {
+    if (selectedCustomer !== 'all' && !customerOptions.includes(selectedCustomer)) {
+      setSelectedCustomer('all')
+    }
+  }, [selectedCustomer, customerOptions])
+
+  useEffect(() => {
+    if (selectedProduct !== 'all' && !productOptions.includes(selectedProduct)) {
+      setSelectedProduct('all')
+    }
+  }, [selectedProduct, productOptions])
 
   const revenueSeries = useMemo(
     () =>
@@ -242,13 +289,10 @@ function Dashboard() {
 
   const productSeries = useMemo(
     () =>
-      topProducts.map((entry) => {
-        const product = entry['Item Name'] || entry.item_name || entry.product || entry.name || 'Unknown Product'
-        return {
-          product,
-          revenue: Number(entry['Total Value'] || entry.total_value || entry.revenue || entry.value || 0),
-        }
-      }),
+      topProducts.map((entry) => ({
+        product: entry['Item Name'] || entry.item_name || entry.product || entry.name || 'Unknown Product',
+        revenue: Number(entry['Total Value'] || entry.total_value || entry.revenue || entry.value || 0),
+      })),
     [topProducts],
   )
 
@@ -279,25 +323,47 @@ function Dashboard() {
       (totalTransactions > 0 ? totalRevenue / totalTransactions : 0),
   )
 
+  const hasVisualData =
+    revenueSeries.length > 0 ||
+    customerSeries.length > 0 ||
+    gstSeries.length > 0 ||
+    productSeries.length > 0 ||
+    categorySeries.length > 0
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       <div className="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8">
         <header className="mb-8">
           <p className="text-xs uppercase tracking-[0.3em] text-cyan-300/90">Business Intelligence Suite</p>
           <h1 className="mt-2 text-3xl font-semibold leading-tight text-slate-50 sm:text-4xl">
-            ❄️ Dynacool Analytics Dashboard
+            Dynacool Analytics Dashboard
           </h1>
-          <p className="mt-3 max-w-2xl text-sm text-slate-400">Business Intelligence & Sales Insights</p>
+          <p className="mt-3 max-w-2xl text-sm text-slate-400">
+            Interactive revenue, customer, GST, and product insights with live backend filtering.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <ScopeBadge label="Year" value={selectedYear} />
+            <ScopeBadge label="Customer" value={selectedCustomer} />
+            <ScopeBadge label="Product" value={selectedProduct} />
+          </div>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-[290px_1fr]">
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           <Filters
             years={yearOptions}
             customers={customerOptions}
+            products={productOptions}
             selectedYear={selectedYear}
             selectedCustomer={selectedCustomer}
+            selectedProduct={selectedProduct}
             onYearChange={setSelectedYear}
             onCustomerChange={setSelectedCustomer}
+            onProductChange={setSelectedProduct}
+            onReset={() => {
+              setSelectedYear('all')
+              setSelectedCustomer('all')
+              setSelectedProduct('all')
+            }}
           />
 
           <main className="space-y-6">
@@ -327,6 +393,8 @@ function Dashboard() {
                   />
                 </section>
 
+                {!hasVisualData && totalRevenue === 0 && totalTransactions === 0 ? <EmptyDashboardState /> : null}
+
                 <section className="grid gap-6 xl:grid-cols-2">
                   <RevenueChart data={revenueSeries} />
                   <CustomerChart data={customerSeries} />
@@ -337,24 +405,30 @@ function Dashboard() {
 
                   <section className="rounded-2xl border border-slate-700/60 bg-slate-900/70 p-5 shadow-lg shadow-slate-950/20 transition-all duration-300 hover:border-fuchsia-400/40">
                     <h3 className="mb-4 text-lg font-semibold text-slate-100">Revenue Distribution</h3>
-                    <div className="h-80 w-full">
-                      <ResponsiveContainer>
-                        <BarChart data={revenueHistogram} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                          <XAxis dataKey="bucket" stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-                          <YAxis stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                          <Tooltip
-                            contentStyle={{
-                              background: '#0f172a',
-                              border: '1px solid #334155',
-                              borderRadius: '12px',
-                              color: '#e2e8f0',
-                            }}
-                          />
-                          <Bar dataKey="count" fill="#e879f9" radius={[8, 8, 0, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
+                    {revenueHistogram.length ? (
+                      <div className="h-80 w-full">
+                        <ResponsiveContainer>
+                          <BarChart data={revenueHistogram} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="bucket" stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 11 }} />
+                            <YAxis stroke="#94a3b8" tick={{ fill: '#94a3b8', fontSize: 12 }} />
+                            <Tooltip
+                              contentStyle={{
+                                background: '#0f172a',
+                                border: '1px solid #334155',
+                                borderRadius: '12px',
+                                color: '#e2e8f0',
+                              }}
+                            />
+                            <Bar dataKey="count" fill="#e879f9" radius={[8, 8, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    ) : (
+                      <div className="flex h-80 items-center justify-center rounded-xl border border-dashed border-slate-700 bg-slate-950/60 text-sm text-slate-400">
+                        No revenue distribution available for the selected filters.
+                      </div>
+                    )}
                   </section>
                 </section>
 

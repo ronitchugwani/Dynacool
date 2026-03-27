@@ -5,14 +5,24 @@ const apiClient = axios.create({
   timeout: 15000,
 })
 
-export async function fetchDashboardData(filters = {}) {
+function buildParams(filters = {}) {
   const params = {}
+
   if (filters.year && filters.year !== 'all') {
     params.year = filters.year
   }
   if (filters.customer && filters.customer !== 'all') {
     params.customer = filters.customer
   }
+  if (filters.product && filters.product !== 'all') {
+    params.product = filters.product
+  }
+
+  return params
+}
+
+export async function fetchDashboardData(filters = {}) {
+  const params = buildParams(filters)
 
   const [kpisRes, monthlyRes, customersRes, gstRes, productsRes, categoriesRes] = await Promise.all([
     apiClient.get('/kpis', { params }),
@@ -31,6 +41,12 @@ export async function fetchDashboardData(filters = {}) {
     topProducts: productsRes.data,
     categorySales: categoriesRes.data,
   }
+}
+
+export async function fetchFilterOptions(filters = {}) {
+  const params = buildParams(filters)
+  const response = await apiClient.get('/filters', { params })
+  return response.data
 }
 
 export default apiClient

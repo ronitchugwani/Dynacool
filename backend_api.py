@@ -1,4 +1,4 @@
-"""FastAPI backend for sales analytics dashboard endpoints."""
+"""FastAPI backend for the interactive Dynacool analytics dashboard."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from data_cleaning import clean_reference_data, clean_sales_data
 from data_integration import integrate_data
 
-APP = FastAPI(title="Sales Analytics API", version="1.0.0")
+APP = FastAPI(title="Sales Analytics API", version="1.1.0")
 
 APP.add_middleware(
     CORSMiddleware,
@@ -48,13 +48,6 @@ def _discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> P
     raise FileNotFoundError(f"No Excel file found for keyword '{fallback_keyword}' in {cwd}")
 
 
-def _discover_optional_excel_file(preferred_names: list[str], fallback_keyword: str) -> Path | None:
-    try:
-        return _discover_excel_file(preferred_names, fallback_keyword)
-    except FileNotFoundError:
-        return None
-
-
 def _discover_file(preferred_names: list[str], glob_pattern: str) -> Path | None:
     cwd = Path.cwd()
     for name in preferred_names:
@@ -66,7 +59,11 @@ def _discover_file(preferred_names: list[str], glob_pattern: str) -> Path | None
     return matches[0] if matches else None
 
 
-def _standardize_text_series(series: pd.Series) -> pd.Series:
+def _normalize_text(value: object) -> str:
+    return " ".join(str(value or "").strip().lower().split())
+
+
+def _normalize_series(series: pd.Series) -> pd.Series:
     return (
         series.astype("string")
         .str.strip()
@@ -77,21 +74,47 @@ def _standardize_text_series(series: pd.Series) -> pd.Series:
 
 
 def _normalize_items_columns(df: pd.DataFrame) -> pd.DataFrame:
-    renamed = {
-        col: str(col).strip().lower().replace(" ", "_")
-        for col in df.columns
-    }
-    return df.rename(columns=renamed)
+    return df.rename(columns={col: str(col).strip().lower().replace(" ", "_") for col in df.columns})
 
 
 def _load_items_dataframe() -> pd.DataFrame:
     items_path = _discover_file(["Items.csv"], "*items*.csv")
     if items_path is None:
-        return pd.DataFrame(columns=["date", "customer", "item_name", "category", "total_value", "_year", "_customer_norm"])
+        return pd.DataFrame(
+            columns=[
+                "date",
+                "customer",
+                "item_name",
+                "category",
+                "quantity",
+                "unit_price",
+                "total_value",
+                "_year",
+                "_month",
+                "_customer_norm",
+                "_product",
+                "_product_norm",
+            ]
+        )
 
     items_df = pd.read_csv(items_path)
     if items_df.empty:
-        return pd.DataFrame(columns=["date", "customer", "item_name", "category", "total_value", "_year", "_customer_norm"])
+        return pd.DataFrame(
+            columns=[
+                "date",
+                "customer",
+                "item_name",
+                "category",
+                "quantity",
+                "unit_price",
+                "total_value",
+                "_year",
+                "_month",
+                "_customer_norm",
+                "_product",
+                "_product_norm",
+            ]
+        )
 
     items_df = _normalize_items_columns(items_df)
 
@@ -106,41 +129,29 @@ def _load_items_dataframe() -> pd.DataFrame:
         qty_col = "quantity" if "quantity" in items_df.columns else None
         unit_price_col = "unit_price" if "unit_price" in items_df.columns else None
         if qty_col and unit_price_col:
-            items_df["total_value"] = pd.to_numeric(items_df[qty_col], errors="coerce") * pd.to_numeric(items_df[unit_price_col], errors="coerce")
+            items_df["total_value"] = (
+                pd.to_numeric(items_df[qty_col], errors="coerce")
+                * pd.to_numeric(items_df[unit_price_col], errors="coerce")
+            )
         else:
             items_df["total_value"] = 0.0
 
+    items_df["date"] = pd.to_datetime(items_df.get("date"), errors="coerce")
+    items_df["quantity"] = pd.to_numeric(items_df.get("quantity"), errors="coerce").fillna(0.0)
+    items_df["unit_price"] = pd.to_numeric(items_df.get("unit_price"), errors="coerce").fillna(0.0)
     items_df["total_value"] = pd.to_numeric(items_df["total_value"], errors="coerce").fillna(0.0)
-
-    if "date" in items_df.columns:
-        items_df["date"] = pd.to_datetime(items_df["date"], errors="coerce")
-    else:
-        items_df["date"] = pd.NaT
+    items_df["customer"] = items_df["customer"].astype("string").fillna("Unknown Customer").str.strip()
+    items_df["item_name"] = items_df["item_name"].astype("string").fillna("Unknown Product").str.strip()
+    items_df["category"] = items_df["category"].astype("string").fillna("Uncategorized").str.strip()
+    items_df = items_df.dropna(subset=["date"])
 
     items_df["_year"] = items_df["date"].dt.year
-    items_df["_customer_norm"] = _standardize_text_series(items_df["customer"])
-    items_df["item_name"] = items_df["item_name"].astype("string").fillna("Unknown Item").str.strip()
-    items_df["category"] = items_df["category"].astype("string").fillna("Uncategorized").str.strip()
+    items_df["_month"] = items_df["date"].dt.to_period("M").astype(str)
+    items_df["_customer_norm"] = _normalize_series(items_df["customer"])
+    items_df["_product"] = items_df["item_name"]
+    items_df["_product_norm"] = _normalize_series(items_df["item_name"])
 
     return items_df
-
-
-def _attach_sales_customer_match(items_df: pd.DataFrame, sales_df: pd.DataFrame) -> pd.DataFrame:
-    if items_df.empty:
-        return items_df.copy()
-
-    sales_customers = sales_df[["_customer"]].copy()
-    sales_customers["_customer_norm"] = _standardize_text_series(sales_customers["_customer"])
-    sales_customers = sales_customers.dropna(subset=["_customer_norm"]).drop_duplicates(subset=["_customer_norm"])
-    sales_customers["_matched_in_sales"] = True
-
-    merged = items_df.merge(
-        sales_customers[["_customer_norm", "_matched_in_sales"]],
-        on="_customer_norm",
-        how="left",
-    )
-    merged["_matched_in_sales"] = merged["_matched_in_sales"].fillna(False)
-    return merged
 
 
 def _load_base_dataframe() -> pd.DataFrame:
@@ -170,45 +181,115 @@ def _load_base_dataframe() -> pd.DataFrame:
     df["_revenue"] = df[revenue_col]
 
     if customer_col and customer_col in df.columns:
-        df["_customer"] = df[customer_col].astype("string").fillna("Unknown Customer")
+        df["_customer"] = df[customer_col].astype("string").fillna("Unknown Customer").str.strip()
     else:
         df["_customer"] = "Unknown Customer"
 
-    df["_customer_norm"] = _standardize_text_series(df["_customer"])
+    df["_customer_norm"] = _normalize_series(df["_customer"])
 
     return df
 
 
 BASE_DF = _load_base_dataframe()
-BASE_ITEMS_DF = _attach_sales_customer_match(_load_items_dataframe(), BASE_DF)
+BASE_ITEMS_DF = _load_items_dataframe()
 
 
-def _apply_filters(df: pd.DataFrame, year: Optional[int], customer: Optional[str]) -> pd.DataFrame:
-    filtered = df.copy()
-
-    if year is not None:
-        filtered = filtered[filtered["_year"] == year]
-
-    if customer:
-        normalized_customer = customer.strip().lower()
-        if normalized_customer and normalized_customer != "all":
-            filtered = filtered[filtered["_customer"].str.lower() == normalized_customer]
-
-    return filtered
-
-
-def _apply_item_filters(df: pd.DataFrame, year: Optional[int], customer: Optional[str]) -> pd.DataFrame:
+def _apply_item_filters(
+    df: pd.DataFrame,
+    year: Optional[int] = None,
+    customer: Optional[str] = None,
+    product: Optional[str] = None,
+) -> pd.DataFrame:
     filtered = df.copy()
 
     if year is not None and "_year" in filtered.columns:
         filtered = filtered[filtered["_year"] == year]
 
     if customer:
-        normalized_customer = customer.strip().lower()
-        if normalized_customer and normalized_customer != "all":
-            filtered = filtered[filtered["_customer_norm"] == normalized_customer]
+        customer_norm = _normalize_text(customer)
+        if customer_norm and customer_norm != "all" and "_customer_norm" in filtered.columns:
+            filtered = filtered[filtered["_customer_norm"] == customer_norm]
+
+    if product:
+        product_norm = _normalize_text(product)
+        if product_norm and product_norm != "all" and "_product_norm" in filtered.columns:
+            filtered = filtered[filtered["_product_norm"] == product_norm]
 
     return filtered
+
+
+def _product_customer_scope(
+    year: Optional[int] = None,
+    customer: Optional[str] = None,
+    product: Optional[str] = None,
+) -> set[str] | None:
+    """Approximate product-level filtering for sales views using item-level customer matches."""
+    if not product:
+        return None
+
+    scoped_items = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer, product=product)
+    if scoped_items.empty:
+        return set()
+
+    return set(scoped_items["_customer_norm"].dropna().astype(str).tolist())
+
+
+def _apply_sales_filters(
+    df: pd.DataFrame,
+    year: Optional[int] = None,
+    customer: Optional[str] = None,
+    product: Optional[str] = None,
+) -> pd.DataFrame:
+    filtered = df.copy()
+
+    if year is not None:
+        filtered = filtered[filtered["_year"] == year]
+
+    if customer:
+        customer_norm = _normalize_text(customer)
+        if customer_norm and customer_norm != "all":
+            filtered = filtered[filtered["_customer_norm"] == customer_norm]
+
+    scoped_customers = _product_customer_scope(year=year, customer=customer, product=product)
+    if scoped_customers is not None:
+        if not scoped_customers:
+            return filtered.iloc[0:0].copy()
+        filtered = filtered[filtered["_customer_norm"].isin(scoped_customers)]
+
+    return filtered
+
+
+def _years_from_frames(*frames: pd.DataFrame) -> list[int]:
+    values: set[int] = set()
+    for frame in frames:
+        if "_year" not in frame.columns:
+            continue
+        for value in frame["_year"].dropna().tolist():
+            values.add(int(value))
+    return sorted(values)
+
+
+def _sorted_strings(values: pd.Series) -> list[str]:
+    cleaned = [str(value).strip() for value in values.dropna().astype("string").tolist() if str(value).strip()]
+    return sorted(set(cleaned), key=str.casefold)
+
+
+def _build_filter_options(
+    year: Optional[int] = None,
+    customer: Optional[str] = None,
+    product: Optional[str] = None,
+) -> dict[str, list[object]]:
+    years_source_sales = _apply_sales_filters(BASE_DF, year=None, customer=customer, product=product)
+    years_source_items = _apply_item_filters(BASE_ITEMS_DF, year=None, customer=customer, product=product)
+
+    customers_source = _apply_sales_filters(BASE_DF, year=year, customer=None, product=product)
+    products_source = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer, product=None)
+
+    return {
+        "years": _years_from_frames(years_source_sales, years_source_items),
+        "customers": _sorted_strings(customers_source["_customer"]) if "_customer" in customers_source.columns else [],
+        "products": _sorted_strings(products_source["_product"]) if "_product" in products_source.columns else [],
+    }
 
 
 @APP.get("/health")
@@ -216,26 +297,38 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@APP.get("/filters")
+def get_filters(
+    year: Optional[int] = Query(default=None),
+    customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
+) -> dict[str, list[object]]:
+    return _build_filter_options(year=year, customer=customer, product=product)
+
+
 @APP.get("/kpis")
 def get_kpis(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> dict[str, object]:
-    df = _apply_filters(BASE_DF, year=year, customer=customer)
+    sales_df = _apply_sales_filters(BASE_DF, year=year, customer=customer, product=product)
+    items_df = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer, product=product)
+    filter_options = _build_filter_options(year=year, customer=customer, product=product)
 
-    total_revenue = float(df["_revenue"].sum()) if len(df) else 0.0
-    total_transactions = int(len(df))
+    total_revenue = float(sales_df["_revenue"].sum()) if len(sales_df) else 0.0
+    total_transactions = int(len(sales_df))
     average_transaction_value = float(total_revenue / total_transactions) if total_transactions else 0.0
-
-    years = sorted([int(y) for y in BASE_DF["_year"].dropna().unique().tolist()])
-    customers = sorted([str(c) for c in BASE_DF["_customer"].dropna().unique().tolist()])
 
     return {
         "total_revenue": total_revenue,
         "total_transactions": total_transactions,
         "average_transaction_value": average_transaction_value,
-        "years": years,
-        "customers": customers,
+        "item_sales_value": float(items_df["total_value"].sum()) if len(items_df) else 0.0,
+        "selected_scope_rows": total_transactions,
+        "years": filter_options["years"],
+        "customers": filter_options["customers"],
+        "products": filter_options["products"],
     }
 
 
@@ -243,10 +336,10 @@ def get_kpis(
 def get_monthly_sales(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> list[dict[str, object]]:
-    df = _apply_filters(BASE_DF, year=year, customer=customer)
+    df = _apply_sales_filters(BASE_DF, year=year, customer=customer, product=product)
     monthly = df.groupby("_month", dropna=False)["_revenue"].sum().sort_index()
-
     return [{"month": month, "revenue": float(value)} for month, value in monthly.items()]
 
 
@@ -254,16 +347,15 @@ def get_monthly_sales(
 def get_top_customers(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> list[dict[str, object]]:
-    df = _apply_filters(BASE_DF, year=year, customer=customer)
-
+    df = _apply_sales_filters(BASE_DF, year=year, customer=customer, product=product)
     top = (
         df.groupby("_customer", dropna=False)["_revenue"]
         .sum()
         .sort_values(ascending=False)
         .head(10)
     )
-
     return [{"customer": str(name), "revenue": float(value)} for name, value in top.items()]
 
 
@@ -271,8 +363,9 @@ def get_top_customers(
 def get_gst(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> list[dict[str, object]]:
-    df = _apply_filters(BASE_DF, year=year, customer=customer)
+    df = _apply_sales_filters(BASE_DF, year=year, customer=customer, product=product)
 
     gst_columns = [
         col
@@ -294,15 +387,16 @@ def get_gst(
 def get_top_products(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> list[dict[str, object]]:
-    df = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer)
+    df = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer, product=product)
     result = (
-        df.groupby("item_name", dropna=False)["total_value"]
+        df.groupby("_product", dropna=False)["total_value"]
         .sum()
         .sort_values(ascending=False)
         .head(10)
         .reset_index()
-        .rename(columns={"item_name": "Item Name", "total_value": "Total Value"})
+        .rename(columns={"_product": "Item Name", "total_value": "Total Value"})
     )
     return result.to_dict(orient="records")
 
@@ -311,8 +405,9 @@ def get_top_products(
 def get_category_sales(
     year: Optional[int] = Query(default=None),
     customer: Optional[str] = Query(default=None),
+    product: Optional[str] = Query(default=None),
 ) -> list[dict[str, object]]:
-    df = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer)
+    df = _apply_item_filters(BASE_ITEMS_DF, year=year, customer=customer, product=product)
     result = (
         df.groupby("category", dropna=False)["total_value"]
         .sum()
