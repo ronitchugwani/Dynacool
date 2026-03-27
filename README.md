@@ -1,5 +1,7 @@
 # Dynacool Business Analytics Project
 
+<!-- Recruiter-facing README with business context, quantified insights, and portfolio guidance. -->
+
 ## Introduction
 Dynacool is a refrigeration and cooling solutions business where invoice-level sales data, customer demand patterns, and product mix directly influence planning, billing visibility, and commercial decisions. This internship project transforms raw ERP-style exports into a structured analytics workflow that supports revenue analysis, customer intelligence, forecasting, and dashboard-ready reporting.
 

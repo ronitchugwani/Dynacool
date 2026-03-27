@@ -328,6 +328,7 @@ def clean_reference_data(file_path: str | Path) -> pd.DataFrame:
     """Load and clean master/reference dataset."""
     raw_df = load_excel_robust(file_path)
     df = normalize_column_names(raw_df)
+    # Keep catalog/reference sheets lightly transformed so downstream joins can decide how to use them.
     df = _sanitize_text_columns(df)
     df = convert_numeric_columns(df)
     return df

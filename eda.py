@@ -143,6 +143,7 @@ def perform_eda(df: pd.DataFrame, output_dir: str | Path = "outputs/plots") -> d
     peak_month_idx = monthly_revenue.idxmax()
     weakest_month_idx = monthly_revenue.idxmin()
 
+    # Collect artifact paths so the README and dashboard layers can point to concrete outputs.
     plot_files: list[str] = []
 
     fig, ax = plt.subplots(figsize=(12, 6))

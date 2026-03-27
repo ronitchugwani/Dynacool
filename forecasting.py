@@ -89,6 +89,7 @@ def forecast_revenue_arima(
     fig.savefig(output_path / "revenue_forecast_arima.png", dpi=300)
     plt.close(fig)
 
+    # Store forecast output in a JSON-friendly format for APIs, dashboards, and README metrics.
     forecast_payload = {
         idx.strftime("%Y-%m"): {
             "forecast": float(forecast_mean.loc[idx]),

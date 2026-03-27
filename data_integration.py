@@ -50,6 +50,7 @@ def _build_skipped_integration_summary(
     master_df: pd.DataFrame,
 ) -> dict[str, Any]:
     """Describe why a merge was skipped when the reference sheet is not customer keyed."""
+    # Returning a structured summary keeps the pipeline honest without forcing an invalid merge.
     return {
         "integration_status": "skipped",
         "join_key_used": None,

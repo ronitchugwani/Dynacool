@@ -78,6 +78,7 @@ def analyze_item_sales(
     plot_dir = _ensure_output_dir(output_dir)
     items = load_item_sales_data(file_path)
 
+    # Item-level charts complement invoice analytics with a clearer merchandising and category lens.
     items["_month_start"] = items["date"].dt.to_period("M").dt.to_timestamp()
 
     total_item_value = items["total_value"].sum()

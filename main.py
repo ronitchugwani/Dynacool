@@ -210,6 +210,7 @@ def run_pipeline() -> None:
     forecast_results = forecast_revenue_arima(monthly_series, periods=6, output_dir=plots_dir)
     item_results = analyze_item_sales(items_path, output_dir=plots_dir) if items_path else None
 
+    # Persist one consolidated payload so both technical reviewers and non-technical stakeholders have a single source of truth.
     combined_results = {
         "cleaning": {
             "date_column": cleaned_sales.date_column,
