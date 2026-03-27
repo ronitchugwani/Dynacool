@@ -181,18 +181,21 @@ This project shows how raw operational data can be converted into a business ana
 
 ### Analytics Pipeline
 ```bash
+cd backend
 pip install -r requirements.txt
 python main.py
 ```
 
 ### Streamlit Dashboard
 ```bash
+cd backend
 streamlit run app.py
 ```
 
 ### FastAPI Backend
 ```bash
-uvicorn backend_api:APP --reload
+cd backend
+uvicorn api:app --host 0.0.0.0 --port 10000
 ```
 
 ### React Frontend
@@ -202,20 +205,46 @@ npm install
 npm run dev
 ```
 
+## Deployment Notes
+
+### Vercel
+Deploy the `frontend/` app only.
+
+- Root Directory: `frontend`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Environment Variable: `VITE_API_URL=https://your-backend-url.onrender.com`
+
+### Render
+Deploy the `backend/` app as a Python web service.
+
+- Root Directory: `backend`
+- Build Command: `pip install -r requirements.txt`
+- Start Command: `uvicorn api:app --host 0.0.0.0 --port 10000`
+
 ## Repository Structure
 ```text
 dynacool/
-+-- main.py
-+-- data_cleaning.py
-+-- data_integration.py
-+-- eda.py
-+-- forecasting.py
-+-- item_analytics.py
-+-- backend_api.py
-+-- app.py
-+-- Items.csv
-+-- DayBook (1).xlsx
-+-- Master.xlsx
++-- backend/
+|   +-- api.py
+|   +-- backend_api.py
+|   +-- data_cleaning.py
+|   +-- data_integration.py
+|   +-- eda.py
+|   +-- forecasting.py
+|   +-- item_analytics.py
+|   +-- main.py
+|   +-- app.py
+|   +-- requirements.txt
+|   +-- render.yaml
+|   +-- data/
+|       +-- DayBook (1).xlsx
+|       +-- Master.xlsx
+|       +-- Items.csv
 +-- outputs/
 +-- frontend/
+|   +-- .env
+|   +-- package.json
+|   +-- vite.config.js
+|   +-- vercel.json
 ```

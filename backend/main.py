@@ -14,6 +14,7 @@ from data_integration import integrate_sales_and_master
 from eda import perform_eda
 from forecasting import build_monthly_revenue_series, forecast_revenue_arima
 from item_analytics import analyze_item_sales
+from paths import BACKEND_DIR, DATA_DIR, OUTPUTS_DIR, resolve_backend_path
 
 
 def configure_logging() -> None:
@@ -25,17 +26,17 @@ def configure_logging() -> None:
 
 def discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> Path:
     """Find dataset files by preferred names, then by keyword search."""
-    cwd = Path.cwd()
+    cwd = BACKEND_DIR
 
     for name in preferred_names:
-        candidate = cwd / name
+        candidate = resolve_backend_path(name)
         if candidate.exists():
             return candidate
 
     matches = sorted(
         [
             path
-            for path in cwd.glob("*.xlsx")
+            for path in DATA_DIR.glob("*.xlsx")
             if fallback_keyword.lower() in path.stem.lower()
         ],
         key=lambda p: p.name.lower(),
@@ -50,20 +51,20 @@ def discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> Pa
 
 def discover_optional_file(preferred_names: list[str], glob_pattern: str) -> Path | None:
     """Return the first matching optional file, or None when it is absent."""
-    cwd = Path.cwd()
+    cwd = BACKEND_DIR
 
     for name in preferred_names:
-        candidate = cwd / name
+        candidate = resolve_backend_path(name)
         if candidate.exists():
             return candidate
 
-    matches = sorted(cwd.glob(glob_pattern), key=lambda p: p.name.lower())
+    matches = sorted((BACKEND_DIR / "data").glob(glob_pattern), key=lambda p: p.name.lower())
     return matches[0] if matches else None
 
 
 def ensure_output_dirs() -> tuple[Path, Path]:
-    plots_dir = Path("outputs") / "plots"
-    results_dir = Path("outputs") / "results"
+    plots_dir = OUTPUTS_DIR / "plots"
+    results_dir = OUTPUTS_DIR / "results"
     plots_dir.mkdir(parents=True, exist_ok=True)
     results_dir.mkdir(parents=True, exist_ok=True)
     return plots_dir, results_dir

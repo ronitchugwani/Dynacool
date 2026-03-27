@@ -10,6 +10,8 @@ from typing import Optional
 
 import pandas as pd
 
+from paths import resolve_backend_path
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -93,7 +95,7 @@ def normalize_column_names(df: pd.DataFrame) -> pd.DataFrame:
 
 def load_excel_robust(file_path: str | Path, sheet_name: int | str = 0) -> pd.DataFrame:
     """Read an Excel file with useful fallbacks and validation."""
-    path = Path(file_path)
+    path = resolve_backend_path(file_path)
     if not path.exists():
         raise FileNotFoundError(f"Excel file not found: {path}")
 

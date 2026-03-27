@@ -14,6 +14,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 
+from paths import DATA_DIR, resolve_backend_path
+
 
 def _detect_customer_column(df: pd.DataFrame) -> str:
     """Detect likely customer column from the cleaned dataframe."""
@@ -58,7 +60,7 @@ def _monthly_date_pool(start_year: int = 2023, end_year: int = 2025) -> list[pd.
 
 def generate_item_sales_dataset(
     cleaned: Any,
-    output_path: str = "Items.csv",
+    output_path: str = "data/Items.csv",
     rows: int = 300,
     seed: int = 42,
 ) -> pd.DataFrame:
@@ -148,12 +150,14 @@ def generate_item_sales_dataset(
     items_df["Date"] = pd.to_datetime(items_df["Date"])  # Keep this as datetime for analytics.
     items_df = items_df.sort_values("Date").reset_index(drop=True)
 
-    items_df.to_csv(output_path, index=False)
+    output_file = resolve_backend_path(output_path)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    items_df.to_csv(output_file, index=False)
 
     print("Generated item-level dataset preview:")
     print(items_df.head())
     print(f"\nTotal rows: {len(items_df)}")
-    print(f"Saved file: {output_path}")
+    print(f"Saved file: {output_file}")
 
     return items_df
 
@@ -164,8 +168,8 @@ def main() -> None:
         # Project-specific loader to produce `cleaned` object with `.dataframe`.
         from data_cleaning import clean_sales_data
 
-        cleaned = clean_sales_data("DayBook (1).xlsx")
-        generate_item_sales_dataset(cleaned=cleaned, output_path="Items.csv", rows=300, seed=42)
+        cleaned = clean_sales_data(DATA_DIR / "DayBook (1).xlsx")
+        generate_item_sales_dataset(cleaned=cleaned, output_path=str(DATA_DIR / "Items.csv"), rows=300, seed=42)
     except Exception as exc:
         print("Failed to generate item-level dataset.")
         print(f"Reason: {exc}")

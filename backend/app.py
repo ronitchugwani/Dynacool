@@ -16,21 +16,22 @@ from data_cleaning import (
     detect_revenue_column,
 )
 from data_integration import integrate_sales_and_master
+from paths import BACKEND_DIR, resolve_backend_path
 
 
 def discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> Path:
     """Find dataset files by preferred names, then by keyword search."""
-    cwd = Path.cwd()
+    cwd = BACKEND_DIR
 
     for name in preferred_names:
-        candidate = cwd / name
+        candidate = resolve_backend_path(name)
         if candidate.exists():
             return candidate
 
     matches = sorted(
         [
             path
-            for path in cwd.glob("*.xlsx")
+            for path in (BACKEND_DIR / "data").glob("*.xlsx")
             if fallback_keyword.lower() in path.stem.lower()
         ],
         key=lambda p: p.name.lower(),

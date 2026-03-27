@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -11,15 +12,22 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from data_cleaning import clean_reference_data, clean_sales_data
 from data_integration import integrate_data
+from paths import BACKEND_DIR, DATA_DIR, resolve_backend_path
 
 APP = FastAPI(title="Sales Analytics API", version="1.1.0")
 
+frontend_origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+configured_frontend_origin = os.getenv("FRONTEND_ORIGIN", "").strip()
+if configured_frontend_origin:
+    frontend_origins.extend([origin.strip() for origin in configured_frontend_origin.split(",") if origin.strip()])
+
 APP.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=frontend_origins,
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,17 +35,17 @@ APP.add_middleware(
 
 
 def _discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> Path:
-    cwd = Path.cwd()
+    cwd = BACKEND_DIR
 
     for name in preferred_names:
-        candidate = cwd / name
+        candidate = resolve_backend_path(name)
         if candidate.exists():
             return candidate
 
     matches = sorted(
         [
             path
-            for path in cwd.glob("*.xlsx")
+            for path in DATA_DIR.glob("*.xlsx")
             if fallback_keyword.lower() in path.stem.lower()
         ],
         key=lambda p: p.name.lower(),
@@ -49,13 +57,13 @@ def _discover_excel_file(preferred_names: list[str], fallback_keyword: str) -> P
 
 
 def _discover_file(preferred_names: list[str], glob_pattern: str) -> Path | None:
-    cwd = Path.cwd()
+    cwd = BACKEND_DIR
     for name in preferred_names:
-        candidate = cwd / name
+        candidate = resolve_backend_path(name)
         if candidate.exists():
             return candidate
 
-    matches = sorted(cwd.glob(glob_pattern), key=lambda p: p.name.lower())
+    matches = sorted(DATA_DIR.glob(glob_pattern), key=lambda p: p.name.lower())
     return matches[0] if matches else None
 
 

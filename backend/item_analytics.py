@@ -9,6 +9,8 @@ from typing import Any
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from paths import resolve_backend_path
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -39,7 +41,7 @@ def _normalize_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 def load_item_sales_data(file_path: str | Path) -> pd.DataFrame:
     """Load the supplementary item-level dataset used for category drilldowns."""
-    path = Path(file_path)
+    path = resolve_backend_path(file_path)
     if not path.exists():
         raise FileNotFoundError(f"Items dataset not found: {path}")
 
