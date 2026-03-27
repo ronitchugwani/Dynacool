@@ -103,6 +103,7 @@ def load_excel_robust(file_path: str | Path, sheet_name: int | str = 0) -> pd.Da
         LOGGER.warning("Primary Excel read failed for %s: %s. Retrying default engine.", path, exc)
         df = pd.read_excel(path, sheet_name=sheet_name)
 
+    # Many ERP exports include title rows before the actual header row.
     if _header_needs_recovery(df.columns):
         LOGGER.info("Detected placeholder headers in %s. Attempting automatic header-row recovery.", path.name)
         raw_preview = pd.read_excel(path, sheet_name=sheet_name, header=None, engine="openpyxl")
@@ -219,6 +220,7 @@ def convert_numeric_columns(df: pd.DataFrame, min_convert_ratio: float = 0.80) -
         if pd.api.types.is_object_dtype(converted[col]) or pd.api.types.is_string_dtype(converted[col]):
             numeric_series = _safe_to_numeric(converted[col])
             ratio = numeric_series.notna().mean()
+            # Only convert when most values behave like numbers, so customer names stay text.
             if ratio >= min_convert_ratio:
                 converted[col] = numeric_series
 

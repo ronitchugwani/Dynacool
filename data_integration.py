@@ -45,6 +45,32 @@ def _select_join_keys(daybook_df: pd.DataFrame, master_df: pd.DataFrame) -> tupl
     raise ValueError("No suitable join keys found. Expected GSTIN or customer name columns in both datasets.")
 
 
+def _build_skipped_integration_summary(
+    daybook_df: pd.DataFrame,
+    master_df: pd.DataFrame,
+) -> dict[str, Any]:
+    """Describe why a merge was skipped when the reference sheet is not customer keyed."""
+    return {
+        "integration_status": "skipped",
+        "join_key_used": None,
+        "join_key_daybook": None,
+        "join_key_master": None,
+        "total_rows": int(len(daybook_df)),
+        "matched_rows": None,
+        "unmatched_rows": None,
+        "match_rate_pct": None,
+        "unmatched_rate_pct": None,
+        "master_duplicate_rows_removed": 0,
+        "daybook_rows_missing_join_key": 0,
+        "reference_rows": int(len(master_df)),
+        "reference_columns": [str(col) for col in master_df.columns],
+        "reason": (
+            "Reference workbook does not expose GSTIN or customer columns that align with the DayBook data. "
+            "It is treated as a catalog-style reference sheet, so sales analytics continue without a direct merge."
+        ),
+    }
+
+
 def _deduplicate_master(master_df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
     """Resolve duplicate master keys by retaining first occurrence per normalized key."""
     before = len(master_df)
@@ -144,7 +170,13 @@ def integrate_sales_and_master(
     working_daybook = cleaned_sales_data.dataframe.copy()
     working_master = cleaned_master_df.copy()
 
-    join_daybook, join_master, strategy = _select_join_keys(working_daybook, working_master)
+    try:
+        join_daybook, join_master, strategy = _select_join_keys(working_daybook, working_master)
+    except ValueError:
+        LOGGER.warning(
+            "Skipping DayBook-to-Master merge because the reference workbook does not share customer/GSTIN keys."
+        )
+        return working_daybook, _build_skipped_integration_summary(working_daybook, working_master)
 
     working_daybook["_join_key"] = _normalize_join_values(working_daybook[join_daybook])
     working_master["_join_key"] = _normalize_join_values(working_master[join_master])

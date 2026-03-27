@@ -32,6 +32,7 @@ def build_monthly_revenue_series(
     working[revenue_col] = pd.to_numeric(working[revenue_col], errors="coerce")
     working = working.dropna(subset=[date_col, revenue_col])
 
+    # Forecasting works best on a consistent month-start time index.
     monthly = (
         working.set_index(date_col)[revenue_col]
         .resample("MS")
@@ -57,6 +58,7 @@ def forecast_revenue_arima(
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
+    # A compact ARIMA baseline is enough here to demonstrate directional planning.
     model = ARIMA(monthly_revenue.astype(float), order=(1, 1, 1))
     fitted = model.fit()
 
